@@ -1,0 +1,11 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using System.Net;
+global using BoilerPlate.Localization;
+global using BoilerPlate.Application.Base;
+global using BoilerPlate.Application.Sections.Exceptions;
+global using BoilerPlate.Application.Extensions;
+global using BoilerPlateProject.Application.Wrappers;
