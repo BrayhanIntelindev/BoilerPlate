@@ -2,12 +2,12 @@
 
 namespace BoilerPlate.Application.Integrations.Dynamics365.Authorization
 {
-    public interface ICRMAuthorizationService
+    public interface IDynamicsAuthorizationService
     {
 
         #region BL
 
-        CRMDynamicsSettings Settings { get; set; }
+        MicrosoftDynamicsSettings Settings { get; set; }
 
         #endregion
         /// <summary>

@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace BoilerPlate.Domain.Entities.Settings.Dynamics
 {
-    public class CRMDynamicsSettings: AppSettingsBase
+    public class MicrosoftDynamicsSettings: AppSettingsBase
     {
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
         public string Authority { get; set; }
         public string ResourceUrl { get; set; }
         public string TenantId { get; set; }
+        public string APIVersion { get; set; }
     }
 }

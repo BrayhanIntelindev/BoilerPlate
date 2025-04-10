@@ -4,13 +4,13 @@ using Microsoft.Identity.Client;
 
 namespace BoilerPlate.Application.Integrations.Dynamics365.Authorization
 {
-    public class CRMAuthorizationService : ICRMAuthorizationService
+    public class DynamicsAuthorizationService : IDynamicsAuthorizationService
     {
-        public CRMDynamicsSettings Settings { get; set; }
+        public MicrosoftDynamicsSettings Settings { get; set; }
         private string _accessToken;
         private DateTimeOffset _tokenExpiration;
 
-        public CRMAuthorizationService(IOptions<CRMDynamicsSettings> settings)
+        public DynamicsAuthorizationService(IOptions<MicrosoftDynamicsSettings> settings)
         {
             Settings = settings.Value;
         }

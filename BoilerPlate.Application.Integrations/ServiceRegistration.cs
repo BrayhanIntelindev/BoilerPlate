@@ -1,7 +1,7 @@
 ﻿using BoilerPlate.Application.Integrations.Base;
 using BoilerPlate.Application.Integrations.Dynamics365.Authorization;
 using BoilerPlate.Application.Integrations.Dynamics365.Base;
-using BoilerPlate.Application.Integrations.Dynamics365.Companies;
+using BoilerPlate.Application.Integrations.Dynamics365.Company;
 using BoilerPlate.Application.Integrations.Woocommerce.Authorization;
 using BoilerPlate.Application.Integrations.Woocommerce.Product;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,8 +18,8 @@ namespace BoilerPlate.Application.Integrations
                     .AddHttpMessageHandler<HttpContextMiddleware>();
 
             //CRM
-            services.AddSingleton<ICRMAuthorizationService, CRMAuthorizationService>();
-            services.AddTransient<ICRMCompanyService, CRMCompanyService>();
+            services.AddSingleton<IDynamicsAuthorizationService, DynamicsAuthorizationService>();
+            services.AddTransient<IDynamicsCompanyService, DynamicsCompanyService>();
 
             //Woocommerce
             services.AddSingleton<IWoocommerceConnectService, WoocommerceConnectService>();

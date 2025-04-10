@@ -1,17 +1,19 @@
 
 using System.Net.Http.Headers;
+using System.Security.Policy;
 using BoilerPlate.Application.Integrations.Base;
 using BoilerPlate.Application.Integrations.Dynamics365.Authorization;
+using BoilerPlate.Application.Integrations.Dynamics365.Dto;
 using Newtonsoft.Json;
 
 namespace BoilerPlate.Application.Integrations.Dynamics365.Base
 {
-    public class CRMServiceBase<T> : IntegrationServiceBase , ICRMServiceBase<T>
+    public class DynamicsServiceBase<T> : IntegrationServiceBase , IDynamicsServiceBase<T>
     {
-        private readonly ICRMAuthorizationService _crmAuthorizationService;
+        private readonly IDynamicsAuthorizationService _crmAuthorizationService;
         private readonly string _entityName;
 
-        public CRMServiceBase(HttpClient apiClient, ICRMAuthorizationService crmAuthorizationService, string entityName)
+        public DynamicsServiceBase(HttpClient apiClient, IDynamicsAuthorizationService crmAuthorizationService, string entityName)
         {
             ApiClient = apiClient;
             _crmAuthorizationService = crmAuthorizationService;
@@ -25,6 +27,29 @@ namespace BoilerPlate.Application.Integrations.Dynamics365.Base
         {
             var token = await _crmAuthorizationService.GetAccessTokenAsync();
             ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
+        public async Task<IEnumerable<T>> GetEntitiesAsync(string query = "")
+        {
+            await SetAuthHeader();
+            var urlBase = $"/api/data/v{_crmAuthorizationService.Settings.APIVersion}/{_entityName}";
+
+            if(!string.IsNullOrEmpty(query))
+            {
+                urlBase += $"?$filter=({query})";
+            }
+            var response = await ApiClient.GetAsync(urlBase);
+
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            var data = JsonConvert.DeserializeObject<DynamicsListResponse<T>>(content);
+
+            if(data == null)
+            {
+                return [];
+            }
+
+            return data.Value;
         }
 
         public async Task<T> GetEntityAsync(Guid id)

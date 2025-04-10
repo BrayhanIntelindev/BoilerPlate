@@ -1,7 +1,16 @@
 namespace BoilerPlate.Application.Integrations.Dynamics365.Base
 {
-    public interface ICRMServiceBase<T>
+    public interface IDynamicsServiceBase<T>
     {
+        /// <summary>
+        /// Gets a list of entities.
+        /// </summary>
+        /// <param name="query">
+        /// query string in format: field1 eq 'value1' and field2 eq true and field3 eq 1
+        /// </param>
+        /// <returns></returns>
+        Task<IEnumerable<T>> GetEntitiesAsync(string query);
+
         /// <summary>
         /// Gets an entity by its ID.
         /// </summary>

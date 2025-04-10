@@ -48,7 +48,7 @@ namespace BoilerPlate.Infrastructure.Repositories.Base
         public async Task<IReadOnlyList<TEntity>> GetPagedReponseAsync<TRequest>(TRequest dto) where TRequest : BasePaginatedRequest
         {
             return await GetQuery()
-                .Filter(Predicates, GlobalFilterWhiteList, dto)
+                .Filter(Predicates, Predicates, [], dto)
                 .Skip((dto.PageNumber - 1) * dto.PageSize)
                 .Take(dto.PageSize)
                 .ToListAsync();
@@ -57,7 +57,7 @@ namespace BoilerPlate.Infrastructure.Repositories.Base
         public async Task<int> CountEntitiesAsync<TRequest>(TRequest dto) where TRequest : BasePaginatedRequest
         {
             return await GetQuery()
-                .Filter(Predicates, GlobalFilterWhiteList, dto)
+                .Filter(Predicates, Predicates, [],dto)
                 .CountAsync();
         }
 
