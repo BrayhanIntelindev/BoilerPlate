@@ -3,7 +3,7 @@ using System.Net.Http.Headers;
 using System.Security.Policy;
 using BoilerPlate.Application.Integrations.Base;
 using BoilerPlate.Application.Integrations.Dynamics365.Authorization;
-using BoilerPlate.Application.Integrations.Dynamics365.Dto;
+using BoilerPlate.Application.Integrations.Dynamics365.Dto.Base;
 using Newtonsoft.Json;
 
 namespace BoilerPlate.Application.Integrations.Dynamics365.Base
