@@ -30,7 +30,7 @@ namespace BoilerPlate.Application.Integrations.Dynamics365.Base
         public async Task<T> GetEntityAsync(Guid id)
         {
             await SetAuthHeader();
-            var response = await ApiClient.GetAsync($"/api/data/v9.0/{_entityName}({id})");
+            var response = await ApiClient.GetAsync($"/api/data/v{_crmAuthorizationService.Settings.APIVersion}/{_entityName}({id})");
 
             response.EnsureSuccessStatusCode();
 
@@ -42,7 +42,7 @@ namespace BoilerPlate.Application.Integrations.Dynamics365.Base
         {
             await SetAuthHeader();
             var content = new StringContent(JsonConvert.SerializeObject(entity), System.Text.Encoding.UTF8, "application/json");
-            var response = await PostAsync($"/api/data/v9.0/{_entityName}", content);
+            var response = await PostAsync($"/api/data/v{_crmAuthorizationService.Settings.APIVersion}/{_entityName}", content);
 
             response.EnsureSuccessStatusCode();
 
@@ -54,7 +54,7 @@ namespace BoilerPlate.Application.Integrations.Dynamics365.Base
         {
             await SetAuthHeader();
             var content = new StringContent(JsonConvert.SerializeObject(entity), System.Text.Encoding.UTF8, "application/json");
-            var response = await PutAsync($"/api/data/v9.0/{_entityName}({id})", content);
+            var response = await PutAsync($"/api/data/v{_crmAuthorizationService.Settings.APIVersion}/{_entityName}({id})", content);
 
             response.EnsureSuccessStatusCode();
         }
@@ -62,7 +62,7 @@ namespace BoilerPlate.Application.Integrations.Dynamics365.Base
         public async Task DeleteEntityAsync(Guid id)
         {
             await SetAuthHeader();
-            var response = await DeleteAsync($"/api/data/v9.0/{_entityName}({id})");
+            var response = await DeleteAsync($"/api/data/v{_crmAuthorizationService.Settings.APIVersion}/{_entityName}({id})");
 
             response.EnsureSuccessStatusCode();
         }
